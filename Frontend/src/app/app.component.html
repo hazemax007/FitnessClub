@@ -1,0 +1,77 @@
+<!-- ? Preloader Start -->
+<div id="app">
+<div id="preloader-active">
+  <div class="preloader d-flex align-items-center justify-content-center">
+      <div class="preloader-inner position-relative">
+          <div class="preloader-circle"></div>
+          <div class="preloader-img pere-text">
+              <img src="assets/img/logo/loder.png" alt="">
+          </div>
+      </div>
+  </div>
+</div>
+<!-- Preloader Start -->
+<header routerLinkActive="active">
+  <!-- Header Start -->
+  <div class="header-area header-transparent">
+      <div class="main-header header-sticky">
+          <div class="container-fluid">
+              <div class="menu-wrapper d-flex align-items-center justify-content-between">
+                  <!-- Logo -->
+                  <div class="logo">
+                      <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                  </div>
+                  <!-- Main-menu -->
+                  <div class="main-menu f-right d-none d-lg-block">
+                      <nav>
+                          <ul id="navigation">
+                              <li><a href="/home" routerLink="home">Home</a></li>
+                              <li><a href="/about" routerLink="about">About</a></li>
+                              <li><a href="/exercise" *ngIf="isLoggedIn" routerLink="exercise">Exercises</a></li>
+                              <li><a href="/trainingProgram" *ngIf="isLoggedIn" routerLink="trainingProgram">Courses</a></li>
+                              <li><a href="/product" *ngIf="isLoggedIn" routerLink="product">Product Store</a></li>
+                              <li><a href="/post" *ngIf="isLoggedIn" routerLink="post">Blog</a></li>
+                              <li><a href="/contact" routerLink="contact">Contact</a></li>
+                              <li><a href="/admin" *ngIf="isLoggedIn && showAdminBoard" routerLink="admin">Admin</a>
+                                <ul class="submenu">
+                                    <li><a href="/exerciceAdmin" routerLink="exerciceAdmin">Exercices DASH</a></li>
+                                    <li><a href="/trainingProgramAdmin" routerLink="trainingProgramAdmin">Training programs DASH</a></li>
+                                    <li><a href="/productAdmin" routerLink="productAdmin">Products DASH</a></li>
+                                    <li><a href="/postAdmin" routerLink="postAdmin">Posts DASH</a></li>
+                                </ul></li>
+                          </ul>
+                      </nav>
+                  </div>          
+                  <!-- Header-btn -->
+                  <div class="header-btns d-none d-lg-block f-right" *ngIf="!isLoggedIn">
+                     <a href="/login" class="btn" routerLink="login">Sign in</a>
+                     <a href="/register" class="btn" routerLink="register">Sign up</a>
+                 </div>
+                 <ul id="navigation" class="profile">
+                  <a (click)="goToProfile(currentUser.id)"> {{username}} </a>
+                 </ul>
+                 <ul id="navigation" class="profile">
+                    <a href="/cart" *ngIf="showUserBoard" routerLink="cart"> Cart </a>
+                   </ul>
+                <div class="header-btns d-none d-lg-block f-right" *ngIf="isLoggedIn">
+                  <a class="btn" (click)="logout()">Logout</a>
+              </div>
+                 <!-- Mobile Menu -->
+                 <div class="col-12">
+                  <div class="mobile_menu d-block d-lg-none"></div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- Header End -->
+</header>
+
+
+  <router-outlet></router-outlet>
+<!-- Scroll Up -->
+<div id="back-top" >
+<a title="Go to Top" href="#"> <i class="fas fa-level-up-alt"></i></a>
+</div>
+</div>
+

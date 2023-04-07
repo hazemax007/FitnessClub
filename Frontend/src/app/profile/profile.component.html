@@ -1,0 +1,51 @@
+<div class="myProfile">
+  <div class="container" *ngIf="currentUser || user; else loggedOut">
+    <div class="row">
+      <div class="col-sm-6">
+        <h2>{{currentUser.username}} Profile</h2>
+        <!--<p>
+          <strong>Token:</strong>
+          {{ currentUser.accessToken.substring(0, 20) }} ...
+          {{ currentUser.accessToken.substr(currentUser.accessToken.length - 20) }}
+        </p>
+        <p>
+          <strong>ID:</strong>
+          {{ user.id }}
+        </p>-->
+        <p>
+          <strong>Email:</strong>
+          {{ user.email }}
+        </p>
+        <p>
+          <strong>Firstname:</strong>
+          {{ user.firstName }}
+        </p>
+        <p>
+          <strong>Lastname:</strong>
+          {{ user.lastName }}
+        </p>
+        <p>
+          <strong>Birthdate:</strong>
+          {{ user.birthdate }}
+        </p>
+        <p>
+          <strong>Phone number:</strong>
+          {{ user.phoneNumber }}
+        </p>
+        <p>
+          <strong>Adresse:</strong>
+          {{ user.adresse }}
+        </p>
+        <button class="btn btn-primary btn-block" (click)="goToUpdate(currentUser.id)">Go to update Profile</button> 
+      </div>  
+      <div class="col-sm-6">
+        <div *ngFor="let file of user.userImages">
+          <img [src]="file.url" width="300px" height="300px">
+        </div>
+      </div>
+    </div> 
+  </div>
+  <ng-template #loggedOut>
+    Please login.
+  </ng-template>
+</div>

@@ -1,0 +1,42 @@
+.exerciceDetails{
+    margin-top: 170px;
+}
+.exerciseInformation{
+    font-size: medium;
+}
+.imageContainer{
+    height: 380px;
+    position: relative;
+    width: 380px;
+}
+.exerciseZoomImage{
+    max-width: 100%;
+    max-height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+h1,h2{
+    color: white;
+}
+b{
+    color: white;
+    font-size: x-large;
+}
+
+.starRating{
+    width: 35px;
+    display: inline-block;
+    margin: 0 auto;
+}
+
+.fa-star {
+    font-size: 35px;
+  }
+
+.selected {
+    color: gold;
+  }

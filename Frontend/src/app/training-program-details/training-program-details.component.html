@@ -1,0 +1,53 @@
+<div class="trainingProgramDetails">
+    <div class="container">
+        <h1>  {{tp.name}}  </h1>
+        <br>
+        <div class="row">
+            <div class="col-sm-6">
+                    <iframe width="567" height="315" [src]="sanitizedUrl" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                    </iframe>
+            </div>
+            <div class="col-sm-6">
+                    <br>
+                    <h3> Type :   {{tp.type}}  </h3>
+                    <h3> Level :  {{tp.level}}  </h3>
+                    <h3> Days per week :  {{tp.daysPerWeek}}  </h3>
+                    <br>
+                    <h4>Description :</h4>
+                    <h4> {{tp.description}}  </h4>
+                <br>
+                <div class="text-center">
+                    <button class="genric-btn danger radius">Add to favourites</button>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <div class="row">
+            <div class="col-sm-6">
+                <br>
+                <img [src]="tp.coachPictures[0].url" height="500px" width="500px">
+                <br>
+                <br>
+            </div>
+            <div class="col-sm-6">
+                <h3>Coach CV & description:</h3>
+                <br>
+                <h4>  {{tp.coachCV}}  </h4>
+            </div>
+        </div>
+        <br>
+        <br>
+        <div class="row">
+            <div class="text-center">
+                <button class="btn">Apply to course</button>
+                <br>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>

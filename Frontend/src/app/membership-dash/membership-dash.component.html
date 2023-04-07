@@ -1,0 +1,124 @@
+<div class="container">
+    <div class="adminBoard" id="main-container">
+       <div class="section-top-border">
+         <h3 class="mb-30">Membership table</h3>
+         <div class="progress-table-wrap">
+           <div class="progress-table">
+             <div class="table-head">
+               <div class="serial">#</div>
+               <div class="country">Type</div>
+               <div class="country">Price</div>
+               <div class="country">Duration</div>
+               <div class="country">Options</div>
+               <div class="country">Actions</div>
+             </div>
+             <div class="table-row" *ngFor="let membership of listMembership">
+               <div class="serial"> {{membership.id}} </div>
+               <div class="country"> {{membership?.type}} </div>
+               <div class="country"> {{membership?.price}} </div>
+               <div class="country"> {{membership?.duration}} </div>
+               <div class="country"> {{membership?.options}} </div>
+               <div class="country">
+                 <button class="genric-btn info radius"><a (click)="onOpenModal(membership, 'edit')">Edit</a></button>
+                 <button class="genric-btn danger radius"><a (click)="onOpenModal(membership, 'delete')">Delete</a></button>
+               </div>
+ 
+             </div>
+           </div>
+         </div>
+         <button class="btn" (click)="onOpenModal(null!, 'add')">Add Membership</button>
+       </div>
+     </div>
+     <!-- Add Employee Modal -->
+     <div class="modal fade" id="addMembershipModal" tabindex="-1" role="dialog" aria-labelledby="addMembershipModalLabel" aria-hidden="true">
+       <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="addMembershipModalLabel">Add Membership</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <form #addForm="ngForm" (ngSubmit)="onAddMembership(addForm)">
+               <div class="form-group">
+                  <label for="type">Type</label>
+                  <input type="text" ngModel name="type" class="form-control" id="type" placeholder="type" required>
+               </div>
+               <div class="form-group">
+                  <label for="price">Price</label>
+                  <input type="number" ngModel name="price" class="form-control" id="price" placeholder="price" required>
+               </div>
+               <div class="form-group">
+                  <label for="duration">Duration</label>
+                  <input type="text" ngModel name="duration" class="form-control" id="duration" placeholder="duration" required>
+               </div>
+               
+               <div class="modal-footer">
+                  <button type="button" id="add-membership-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+               </div>
+               </form>
+            </div>
+         </div>
+       </div>
+       </div>
+     
+     <!-- Edit Modal -->
+     <div class="modal fade" id="updateMembershipModal" tabindex="-1" role="dialog" aria-labelledby="updateMembershipModalLabel" aria-hidden="true">
+       <div class="modal-dialog" role="document">
+          <div class="modal-content">
+             <div class="modal-header">
+                <h5 class="modal-title" id="updateMembershipModalLabel">Edit Product {{editMembership?.id}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+             </div>
+             <div class="modal-body">
+                <form #editForm="ngForm">
+                   <div class="form-group">
+                      <label for="type">Type</label>
+                      <input type="text" ngModel="{{editMembership?.type}}" name="type" class="form-control" id="type" placeholder="type">
+                   </div>
+                   <div class="form-group">
+                     <label for="price">Price</label>
+                     <input type="number" ngModel="{{editMembership?.price}}" name="price" class="form-control" id="price" placeholder="price">
+                   </div>
+                   <div class="form-group">
+                      <label for="duration">Duration</label>
+                      <input type="text" ngModel="{{editMembership?.duration}}" name="duration" class="form-control" id="duration" placeholder="duration">
+                   </div>
+                   <div class="modal-footer">
+                      <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                      <button (click)="onUpdateMembership(editForm.value,editMembership.id)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+                   </div>
+                </form>
+             </div>
+          </div>
+       </div>
+     </div>
+     
+     <!-- Delete Modal -->
+     <div class="modal fade" id="deleteMembershipModal" tabindex="-1" role="dialog" aria-labelledby="deleteMembershipModalLabel" aria-hidden="true">
+       <div class="modal-dialog" role="document">
+          <div class="modal-content">
+             <div class="modal-header">
+                <h5 class="modal-title" id="deleteProductModalLabel">Delete Membership</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+             </div>
+             <div class="modal-body">
+                <p>Are you sure you want to delete membership {{deleteMembership?.id}}?</p>
+                <div class="modal-footer">
+                   <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                   <button (click)="onDeleteMembership(deleteMembership.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                </div>
+             </div>
+          </div>
+       </div>
+     </div>
+     
+     
+     
+ </div>

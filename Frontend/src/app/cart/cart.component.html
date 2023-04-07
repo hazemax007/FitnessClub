@@ -1,0 +1,25 @@
+<div class="cart">
+    <div class="container mt-5">
+        <h3 class="mb-30">Table</h3>
+        <div class="progress-table-wrap">
+            <div class="progress-table">
+                <div class="table-head">
+                    <div class="serial">#</div>
+                    <div class="country">Product Name</div>
+                    <div class="country">Product standard price</div>
+                    <div class="country">Prodcut discounted price</div>
+                </div>
+                <div class="table-row" *ngFor="let cart of listCart">
+                    <div class="serial"> {{cart.id}} </div>
+                    <div class="country"> {{cart.product.name}} </div>
+                    <div class="country"> {{cart.product.price}} </div>
+                    <div class="country"> {{cart.product.discount}} </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="text-center">
+            <button class="genric-btn danger radius" (click)="checkout()">Checkout</button>
+        </div> 
+    </div>   
+</div>

@@ -1,0 +1,134 @@
+<div class="container">
+    <div class="adminBoard" id="main-container">
+       <div class="section-top-border">
+         <h3 class="mb-30">User table</h3>
+         <div class="progress-table-wrap">
+           <div class="progress-table">
+             <div class="table-head">
+               <div class="serial">#</div>
+               <div class="country">Title</div>
+               <div class="country">Text</div>
+               <div class="country">CreatedAt</div>
+               <div class="country">Actions</div>
+             </div>
+             <div class="table-row" *ngFor="let post of listPost">
+               <div class="serial"> {{post.id}} </div>
+               <div class="country"> {{post?.title}} </div>
+               <div class="country"> {{post?.text}} </div>
+               <div class="country"> {{post?.createdAt}} </div>
+               <div class="country">
+                 <button class="genric-btn info radius"><a (click)="onOpenModal(post, 'edit')">Edit</a></button>
+                 <button class="genric-btn danger radius"><a (click)="onOpenModal(post, 'delete')">Delete</a></button>
+               </div>
+ 
+             </div>
+           </div>
+         </div>
+         <button class="btn" (click)="onOpenModal(null!, 'add')">Add Post</button>
+       </div>
+     </div>
+     <!-- Add Employee Modal -->
+     <div class="modal fade" id="addPostModal" tabindex="-1" role="dialog" aria-labelledby="addPostModalLabel" aria-hidden="true">
+       <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="addPostModalLabel">Add Post</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <form #addForm="ngForm" (ngSubmit)="onAddPost(addForm)">
+                  <div class="form-group">
+                     <label for="title">Title</label>
+                     <input type="text" ngModel name="title" class="form-control" id="title" placeholder="title" required>
+                  </div>
+                  <div class="form-group">
+                     <label for="text">Text</label>
+                     <textarea ngModel name="text" class="form-control" id="text" placeholder="text" required></textarea>
+                     <button type="button" id="addLineBreaks">Add Line Breaks</button>
+                  </div>
+                  <div class="form-group">
+                     <label for="postImages">Post Images</label>
+                     <input type="file" multiple value="postImages" #selectFile (change)="onFileSelected($event)">
+                  </div>
+                  <div class="container">
+                     <div class="row">
+                        <div id="postImages" class="col-sm" *ngFor="let file of post.postImages let i = index">
+                           <div style="position: relative">
+                              <span class="btn-remove-image" (click)="removeImage(i)">x</span>
+                              <img [src]="file.url" width="100px" height="100px">
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               <div class="modal-footer">
+                  <button type="button" id="add-exercice-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+               </div>
+               </form>
+            </div>
+         </div>
+       </div>
+       </div>
+     
+     <!-- Edit Modal -->
+     <div class="modal fade" id="updatePostModal" tabindex="-1" role="dialog" aria-labelledby="updatePostModalLabel" aria-hidden="true">
+       <div class="modal-dialog" role="document">
+          <div class="modal-content">
+             <div class="modal-header">
+                <h5 class="modal-title" id="updatePostModalLabel">Edit Exercice {{editPost?.id}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+             </div>
+             <div class="modal-body">
+                <form #editForm="ngForm">
+                  <div class="form-group">
+                     <label for="title">Title</label>
+                     <input type="text" ngModel="{{editPost?.title}}" name="title" class="form-control" id="title" placeholder="title">
+                  </div>  
+                   <div class="form-group">
+                      <label for="text">Text</label>
+                      <textarea ngModel="{{editPost?.text}}" name="text" class="form-control" id="text" placeholder="text"></textarea>
+                      <button type="button" id="addLineBreaks">Add Line Breaks</button>
+                   </div>
+                   <div class="modal-footer">
+                      <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                      <button (click)="onUpdatePost(editForm.value,editPost.id)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+                   </div>
+                </form>
+             </div>
+          </div>
+       </div>
+     </div>
+     
+     <!-- Delete Modal -->
+     <div class="modal fade" id="deletePostModal" tabindex="-1" role="dialog" aria-labelledby="deletePostModelLabel" aria-hidden="true">
+       <div class="modal-dialog" role="document">
+          <div class="modal-content">
+             <div class="modal-header">
+                <h5 class="modal-title" id="deletePostModelLabel">Delete Post</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+             </div>
+             <div class="modal-body">
+                <p>Are you sure you want to delete post {{deletePost?.id}}?</p>
+                <div class="modal-footer">
+                   <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                   <button (click)="onDeletePost(deletePost.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                </div>
+             </div>
+          </div>
+       </div>
+     </div>
+     
+ </div>
+
+ <script>
+   document.getElementById("addLineBreaks").addEventListener("click", function() {
+   document.getElementById("text").value = "Line 1 \n Line 2 \n Line 3";
+   });
+ </script>
+

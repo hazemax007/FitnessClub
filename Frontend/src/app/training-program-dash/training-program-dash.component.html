@@ -1,0 +1,188 @@
+<div class="trainingProgramDASH">
+   <div class="container">
+      <div class="adminBoard" id="main-container">
+         <div class="section-top-border">
+           <h3 class="mb-30">Training Programs table</h3>
+           <div class="progress-table-wrap">
+             <div class="progress-table">
+              <div class="searchBar">
+                 <input type="text" name="searchKey" id="searchKey" placeholder="Search any product" onfocus="this.placeholder = ''"
+                 onblur="this.placeholder = 'Search any product'" class="single-input" #searchKeyWord (keyup)="searchByKeyWord(searchKeyWord.value)">
+             </div>
+               <div class="table-head">
+                 <div class="serial">#</div>
+                 <div class="country">Name</div>
+                 <div class="country">Type</div>
+                 <div class="country">Level</div>
+                 <div class="country">Days Per Week</div>
+                 <div class="country">Description</div>
+                 <div class="country">Actions</div>
+               </div>
+               <div class="table-row" *ngFor="let trainingProgram of listTrainingProgram">
+                 <div class="serial"> {{trainingProgram.id}} </div>
+                 <div class="country"> {{trainingProgram?.name}} </div>
+                 <div class="country"> {{trainingProgram?.type}} </div>
+                 <div class="country"> {{trainingProgram?.level}} </div>
+                 <div class="country"> {{trainingProgram?.daysPerWeek}} </div>
+                 <div class="country"> {{trainingProgram?.description}} </div>
+                 <div class="country">
+                   <button class="genric-btn info radius"><a (click)="onOpenModal(trainingProgram, 'edit')">Edit</a></button>
+                   <button class="genric-btn danger radius"><a (click)="onOpenModal(trainingProgram, 'delete')">Delete</a></button>
+                 </div>
+   
+               </div>
+             </div>
+           </div>
+           <div class="fontSizeButton">
+              <div class="text-start">
+                 <button class="genric-btn primary radius" (click)="onOpenModal(null!, 'add')">Add Training Program</button>
+               </div>
+            </div>
+            <div class="fontSizeButton">
+               <div class="text-end">
+                 <button class="genric-btn primary radius" (click)="loadMoreProduct()" *ngIf="showLoadButton">Load more</button>
+               </div>
+            </div>
+         </div>
+       </div>
+       <!-- Add Employee Modal -->
+       <div class="modal fade" id="addTrainingProgramModal" tabindex="-1" role="dialog" aria-labelledby="addTrainingProgramModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+           <div class="modal-content">
+              <div class="modal-header">
+                 <h5 class="modal-title" id="addTrainingProgramModalLabel">Add Training Program</h5>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+                 </button>
+              </div>
+              <div class="modal-body">
+                 <form #addForm="ngForm" (ngSubmit)="onAddTrainingProgram(addForm)">
+                 <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" ngModel name="name" class="form-control" id="name" placeholder="name" required>
+                 </div>
+                 <div class="form-group">
+                    <label for="type">Type</label>
+                    <input type="text" ngModel name="type" class="form-control" id="type" placeholder="type" required>
+                 </div>
+                 <div class="form-group">
+                    <label for="level">Level</label>
+                    <input type="text" ngModel name="level" class="form-control" id="level" placeholder="level" required>
+                 </div>
+                 <div class="form-group">
+                    <label for="daysPerWeek">Days Per Week</label>
+                    <input type="text" ngModel name="daysPerWeek" class="form-control" id="daysPerWeek" placeholder="daysPerWeek" required>
+                 </div>
+                 <div class="form-group">
+                   <label for="description">Description</label>
+                   <input type="text" ngModel name="description" class="form-control" id="description" placeholder="description" required>
+                 </div>
+                 <div class="form-group">
+                  <label for="videoURL">Video URL</label>
+                  <input type="text" ngModel name="videoURL" class="form-control" id="videoURL" placeholder="videoURL" required>
+                </div>
+                <div class="form-group">
+                  <label for="coachCV">Coach CV</label>
+                  <input type="text" ngModel name="coachCV" class="form-control" id="coachCV" placeholder="coachCV" required>
+                </div>
+                 <div class="form-group">
+                    <label for="productImages">Coach picture</label>
+                    <input type="file" multiple value="productImages" #selectFile (change)="onFileSelected($event)">
+                  </div>
+                  <div class="container">
+                    <div class="row">
+                       <div id="prodImages" class="col-sm" *ngFor="let file of trainingProgram.coachPictures; let i = index">
+                          <div style="position: relative">
+                             <span class="btn-remove-image" (click)="removeImage(i)">x</span>
+                             <img [src]="file.url" width="100px" height="100px">
+                          </div>
+                       </div>
+                    </div>
+                  </div>
+                 <div class="modal-footer">
+                    <button type="button" id="add-trainingProgram-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+                 </div>
+                 </form>
+              </div>
+           </div>
+         </div>
+         </div>
+       
+       <!-- Edit Modal -->
+       <div class="modal fade" id="updateTrainingProgramModal" tabindex="-1" role="dialog" aria-labelledby="updateTrainingProgramModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="updateTrainingProgramModalLabel">Edit Exercice {{editTrainingProgram?.name}}</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body">
+                  <form #editForm="ngForm">
+                     <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" ngModel="{{editTrainingProgram?.name}}" name="name" class="form-control" id="name" placeholder="name">
+                     </div>
+                     <div class="form-group">
+                       <label for="type">Type</label>
+                       <input type="text" ngModel="{{editTrainingProgram?.type}}" name="type" class="form-control" id="type" placeholder="type">
+                     </div>
+                     <div class="form-group">
+                        <label for="level">Level</label>
+                        <input type="text" ngModel="{{editTrainingProgram?.level}}" name="level" class="form-control" id="level" placeholder="level">
+                     </div>
+                     <div class="form-group">
+                        <label for="daysPerWeek">Days Per Week</label>
+                        <input type="text" ngModel="{{editTrainingProgram?.daysPerWeek}}" name="daysPerWeek" class="form-control" id="daysPerWeek" placeholder="daysPerWeek">
+                     </div>
+                     <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" ngModel="{{editTrainingProgram?.description}}" name="description" class="form-control" id="description" placeholder="description">
+                     </div>
+                     <div class="form-group">
+                        <label for="videoURL">Video URL</label>
+                        <input type="text" ngModel="{{editTrainingProgram?.videoURL}}" name="videoURL" class="form-control" id="videoURL" placeholder="videoURL">
+                     </div>
+                     <div class="form-group">
+                        <label for="coachCV">Coach CV</label>
+                        <input type="text" ngModel="{{editTrainingProgram?.coachCV}}" name="coachCV" class="form-control" id="coachCV" placeholder="coachCV">
+                     </div>
+                     <div class="modal-footer">
+                        <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                        <button (click)="onUpdateTrainingProgram(editForm.value,editTrainingProgram.id)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+       </div>
+       
+       <!-- Delete Modal -->
+       <div class="modal fade" id="deleteTrainingProgramModal" tabindex="-1" role="dialog" aria-labelledby="deleteTrainingProgramModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="deleteTrainingProgramModalLabel">Delete Training Program</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body">
+                  <p>Are you sure you want to delete training program {{deleteTrainingProgram?.name}}?</p>
+                  <div class="modal-footer">
+                     <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                     <button (click)="onDeleteTrainingProgram(deleteTrainingProgram.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+       </div>
+       
+       
+       
+   </div>
+  
+  
+</div>

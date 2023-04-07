@@ -1,0 +1,57 @@
+<div class="productBuy">
+   <div class="container mt-5">
+    <div class="card p-3">
+        <div class="row">
+            <div class="col-6">
+                <form #orderForm="ngForm" (ngSubmit)="placeOrder(orderForm)">
+                    <input type="text" name="fullName"  placeholder="Enter fullName"
+                    [(ngModel)]="orderDetails.fullName" #username="ngModel">
+                    <br>
+                    <input type="text" name="fullAdresse"  placeholder="Enter fullAdresse"
+                    [(ngModel)]="orderDetails.fullAdresse" #username="ngModel">
+                    <br>
+                    <input type="text" name="contactNumber"  placeholder="Enter contactNumber"
+                    [(ngModel)]="orderDetails.contactNumber" #username="ngModel">
+                    <br>
+                    <input type="text" name="alternateContactNumber"  placeholder="Enter alternateContactNumber"
+                    [(ngModel)]="orderDetails.alternateContactNumber" #username="ngModel">
+                    <br>
+                    <button class="btn">Place Order</button>
+                </form>
+            </div>
+            <div class="col-6">
+                <table class="table">
+                    <thead class="thead">
+                        <tr>
+                            <th>Name</th>
+                            <th>Amount</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbody">
+                        <tr *ngFor="let product of productDetails">
+                            <td>  {{product.name}}  </td>
+                            <td>  {{product.discount}}  </td>
+                            <td>
+                                <select #quantity class="form-select" [ngModel]="getQuantityForProduct(product.id)" (change)="onQuantityChanged(quantity.value,product.id)">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </td>
+                            <td>  {{getCalculatedTotal(product.id, product.discount)}}  </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Total</td>
+                            <td>  {{getCalculatedGrandTotal()}}  </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+   </div> 
+</div>

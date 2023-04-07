@@ -1,0 +1,55 @@
+<!--? Team -->
+<div class="product">
+    <!--? Hero Start -->
+    <div class="slider-area2">
+        <div class="slider-height2 d-flex align-items-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="hero-cap hero-cap2 pt-70">
+                            <h2>Products</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+    <section class="team-area fix">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="section-tittle text-center mb-55 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".1s">
+                        <h2>Check our fitness products</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="searchBar">
+                <input type="text" name="searchKey" id="searchKey" placeholder="Search any product" onfocus="this.placeholder = ''"
+                onblur="this.placeholder = 'Search any product'" class="single-input" #searchKeyWord (keyup)="searchByKeyWord(searchKeyWord.value)">
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6"  *ngFor="let product of listProduct">
+                    <div class="card">
+                        <div class="single-cat text-center mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s">
+                            <div class="cat-icon">
+                                <img [src]="product.productImages[0].url" width="300px" height="300px">
+                            </div>
+                            
+                                <h2 (click)="goToProduct(product.id)">{{product.name}}</h2>
+                                <div class="buttonFontSize">
+                                    <button class="genric-btn danger radius" (click)="goToProduct(product.id)">View details</button>
+                                </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="buttonFontSize">
+                    <div class="text-center mt-5 mb-5" *ngIf="showLoadButton">
+                        <button class="genric-btn primary radius" (click)="loadMoreProduct()">Load More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

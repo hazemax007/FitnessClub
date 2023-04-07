@@ -1,0 +1,163 @@
+<div class="container">
+    <div class="adminBoard" id="main-container">
+       <div class="section-top-border">
+         <h3 class="mb-30">User table</h3>
+         <div class="progress-table-wrap">
+           <div class="progress-table">
+             <div class="table-head">
+               <div class="serial">#</div>
+               <div class="country">Name</div>
+               <div class="country">Body Part</div>
+               <div class="country">Level</div>
+               <div class="country">Nbr of Sets</div>
+               <div class="country">Nuber of Reps</div>
+               <div class="country">Actions</div>
+             </div>
+             <div class="table-row" *ngFor="let exercice of listExercice">
+               <div class="serial"> {{exercice.id}} </div>
+               <div class="country"> {{exercice?.name}} </div>
+               <div class="country"> {{exercice?.bodyPart}} </div>
+               <div class="country"> {{exercice?.level}} </div>
+               <div class="country"> {{exercice?.nbrSets}} </div>
+               <div class="country"> {{exercice?.nbrReps}} </div>
+               <div class="country">
+                 <button class="genric-btn info radius"><a (click)="onOpenModal(exercice, 'edit')">Edit</a></button>
+                 <button class="genric-btn danger radius"><a (click)="onOpenModal(exercice, 'delete')">Delete</a></button>
+               </div>
+ 
+             </div>
+           </div>
+         </div>
+         <button class="btn" (click)="onOpenModal(null!, 'add')">Add Exercice</button>
+       </div>
+     </div>
+     <!-- Add Employee Modal -->
+     <div class="modal fade" id="addExerciceModal" tabindex="-1" role="dialog" aria-labelledby="addExerciceModalLabel" aria-hidden="true">
+       <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title" id="addExerciceModalLabel">Add Exercice</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <form #addForm="ngForm" (ngSubmit)="onAddExercice(addForm)">
+               <div class="form-group">
+                  <label for="name">Name</label>
+                  <input type="text" ngModel name="name" class="form-control" id="name" placeholder="name" required>
+               </div>
+               <div class="form-group">
+                  <label for="bodyPart">Body Part</label>
+                  <input type="text" ngModel name="bodyPart" class="form-control" id="bodyPart" placeholder="bodyPart" required>
+               </div>
+               <div class="form-group">
+                  <label for="level">Level</label>
+                  <input type="text" ngModel name="level" class="form-control" id="level" placeholder="level" required>
+               </div>
+               <div class="form-group">
+                  <label for="description">Description</label>
+                  <input type="text" ngModel name="description" class="form-control" id="description" placeholder="description" required>
+               </div>
+               <div class="form-group">
+                  <label for="nbrSets">Number of Sets</label>
+                  <input type="number" ngModel name="nbrSets" class="form-control" id="nbrSets" placeholder="nbrSets" required>
+               </div>
+               <div class="form-group">
+                 <label for="nbrReps">Number of Reps</label>
+                 <input type="number" ngModel name="nbrReps" class="form-control" id="nbrReps" placeholder="nbrReps" required>
+               </div>
+               <div class="form-group">
+                  <label for="exerciseImages">Image</label>
+                  <input type="file" multiple value="exerciseImages" #selectFile (change)="onFileSelected($event)">
+                </div>
+               <div class="container">
+                  <div class="row">
+                     <div id="exerciseImages" class="col-sm" *ngFor="let file of exercice.exerciseImages; let i = index">
+                        <div style="position: relative">
+                           <span class="btn-remove-image" (click)="removeImage(i)">x</span>
+                           <img [src]="file.url" width="100px" height="100px">
+                        </div>
+                     </div>
+                  </div>
+                </div>
+               <div class="modal-footer">
+                  <button type="button" id="add-exercice-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+               </div>
+               </form>
+            </div>
+         </div>
+       </div>
+       </div>
+     
+     <!-- Edit Modal -->
+     <div class="modal fade" id="updateExerciceModal" tabindex="-1" role="dialog" aria-labelledby="updateExerciceModalLabel" aria-hidden="true">
+       <div class="modal-dialog" role="document">
+          <div class="modal-content">
+             <div class="modal-header">
+                <h5 class="modal-title" id="updateExerciceModalLabel">Edit Exercice {{editExercice?.name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+             </div>
+             <div class="modal-body">
+                <form #editForm="ngForm">
+                   <div class="form-group">
+                      <label for="name">Name</label>
+                      <input type="text" ngModel="{{editExercice?.name}}" name="name" class="form-control" id="name" placeholder="name">
+                   </div>
+                   <div class="form-group">
+                     <label for="bodyPart">Body Part</label>
+                     <input type="text" ngModel="{{editExercice?.bodyPart}}" name="bodyPart" class="form-control" id="bodyPart" placeholder="bodyPart">
+                   </div>
+                   <div class="form-group">
+                      <label for="level">Level</label>
+                      <input type="text" ngModel="{{editExercice?.level}}" name="level" class="form-control" id="level" placeholder="level">
+                   </div>
+                   <div class="form-group">
+                     <label for="description">Description</label>
+                     <input type="text" ngModel="{{editExercice?.description}}" name="description" class="form-control" id="description" placeholder="description">
+                  </div>
+                   <div class="form-group">
+                      <label for="nbrSets">Number of Sets</label>
+                      <input type="number" ngModel="{{editExercice?.nbrSets}}" name="nbrSets" class="form-control" id="nbrSets" placeholder="nbrSets">
+                   </div>
+                   <div class="form-group">
+                      <label for="nbrReps">Number of Reps</label>
+                      <input type="number" ngModel="{{editExercice?.nbrReps}}" name="nbrReps" class="form-control" id="nbrReps" placeholder="nbrReps">
+                   </div>
+                   <div class="modal-footer">
+                      <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                      <button (click)="onUpdateExercice(editForm.value,editExercice.id)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+                   </div>
+                </form>
+             </div>
+          </div>
+       </div>
+     </div>
+     
+     <!-- Delete Modal -->
+     <div class="modal fade" id="deleteExerciceModal" tabindex="-1" role="dialog" aria-labelledby="deleteExerciceModelLabel" aria-hidden="true">
+       <div class="modal-dialog" role="document">
+          <div class="modal-content">
+             <div class="modal-header">
+                <h5 class="modal-title" id="deleteExerciceModelLabel">Delete Exercice</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+             </div>
+             <div class="modal-body">
+                <p>Are you sure you want to delete exercice {{deleteExercice?.name}}?</p>
+                <div class="modal-footer">
+                   <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                   <button (click)="onDeleteExercice(deleteExercice.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                </div>
+             </div>
+          </div>
+       </div>
+     </div>
+     
+     
+     
+ </div>

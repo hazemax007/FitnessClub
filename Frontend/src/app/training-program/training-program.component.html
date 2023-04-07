@@ -1,0 +1,53 @@
+<!--? Team -->
+<div class="trainingProgram">
+    <!--? Hero Start -->
+    <div class="slider-area2">
+        <div class="slider-height2 d-flex align-items-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="hero-cap hero-cap2 pt-70">
+                            <h2>Courses</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+    <section class="team-area fix">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="section-tittle text-center mb-55 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".1s">
+                        <h2>Check our fitness courses</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="searchBar">
+                <input type="text" name="searchKey" id="searchKey" placeholder="Search any course" onfocus="this.placeholder = ''"
+                onblur="this.placeholder = 'Search any course'" class="single-input" #searchKeyWord (keyup)="searchByKeyWord(searchKeyWord.value)">
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6"  *ngFor="let tp of listTrainingProgram">
+                    <div class="card">
+                        <div class="single-cat text-center mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".4s">
+                                <br>
+                                <h1 (click)="goToTrainingProgram(tp.id)">{{tp.name}}</h1>
+                                <br>
+                                <div class="buttonFontSize">
+                                    <button class="genric-btn danger radius" (click)="goToTrainingProgram(tp.id)">View details</button>
+                                </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="buttonFontSize">
+                    <div class="text-center mt-5 mb-5" *ngIf="showLoadButton">
+                        <button class="genric-btn primary radius" (click)="loadMoreProduct()">Load More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

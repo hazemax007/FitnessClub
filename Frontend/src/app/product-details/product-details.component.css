@@ -1,0 +1,28 @@
+.productDetails{
+    margin-top: 170px;
+}
+.productInformation{
+    font-size: medium;
+}
+.imageContainer{
+    height: 520px;
+    position: relative;
+    width: 520px;
+}
+.productZoomImage{
+    max-width: 90%;
+    max-height: 90%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+h2{
+    color: white;
+}
+b{
+    color: white;
+    font-size: x-large;
+}

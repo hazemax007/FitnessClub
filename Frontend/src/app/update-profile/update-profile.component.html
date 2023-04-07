@@ -1,0 +1,96 @@
+<div class="updateProfile">
+    <div class="container">
+        <h2>Updating profile</h2>
+        <form #f="ngForm">
+            <div class="form">
+                
+                <div class="row g-3">
+                    <div class="col-sm-4">
+                      <input type="text" name="username" class="single-input" placeholder="Enter Username"
+                      [(ngModel)]="user.username" #username="ngModel" required minlength="6" maxlength="20">
+                      <div class="alert alert-danger" *ngIf="username.invalid && username.touched">
+                        <div *ngIf="username.errors?.['required']">username is a required field</div>
+                         <div *ngIf="username.errors?.['minlength']">Please provide a valid length superior to 6</div>
+                         <div *ngIf="username.errors?.['maxLength']">Please provide a valid length minimum to 20</div>
+                       </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <input type="text" name="email" class="single-input" placeholder="Enter Email"
+                      [(ngModel)]="user.email" #email="ngModel" required email>
+                      <div class="alert alert-danger" *ngIf="email.invalid && email.touched">
+                        <div *ngIf="email.errors?.['required']">email is a required field</div>
+                         <div *ngIf="email.errors?.['email']">Please provide a valid email</div>
+                       </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="row g-3">
+                    <div class="col-sm-4">
+                        <input type="text" name="firstName" class="single-input" placeholder="Enter FirstName"
+                        [(ngModel)]="user.firstName" #firstName="ngModel" required>
+                        <div class="alert alert-danger" *ngIf="firstName.invalid && firstName.touched">
+                            <div *ngIf="firstName.errors?.['required']">firstName is a required field</div>
+                        </div>
+                      </div>
+                    <div class="col-sm-4">
+                        <input type="text" name="lastName" class="single-input" placeholder="Enter LastName"
+                        [(ngModel)]="user.lastName" #lastName="ngModel" required>
+                        <div class="alert alert-danger" *ngIf="lastName.invalid && lastName.touched">
+                            <div *ngIf="lastName.errors?.['required']">lastName is a required field</div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="row g-3">
+                    <div class="col-sm-4">
+                        <input type="text" name="phoneNumber" class="single-input" placeholder="Enter PhoneNumber"
+                        [(ngModel)]="user.phoneNumber" #phoneNumber="ngModel" required minlength="8">
+                        <div class="alert alert-danger" *ngIf="phoneNumber.invalid && phoneNumber.touched">
+                            <div *ngIf="phoneNumber.errors?.['required']">phoneNumber is a required field</div>
+                            <div *ngIf="phoneNumber.errors?.['minlength']">phoneNumber should be at least 8 numbers</div>
+                        </div>
+                      </div>
+                    <div class="col-sm-4">
+                        <input type="text" name="adresse" class="single-input" placeholder="Enter Adresse"
+                        [(ngModel)]="user.adresse" #adresse="ngModel" required>
+                        <div class="alert alert-danger" *ngIf="adresse.invalid && adresse.touched">
+                            <div *ngIf="adresse.errors?.['required']">adresse is a required field</div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="row g-3">
+                    <div class="col-sm-4">
+                        <input type="date" name="birthdate" class="single-input" placeholder="Enter Birthdate"
+                        [(ngModel)]="user.birthdate" #birthdate="ngModel" required>
+                      </div>
+                      <div class="alert alert-danger" *ngIf="birthdate.invalid && birthdate.touched">
+                        <div *ngIf="birthdate.errors?.['required']">Birthdate is a required field</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="userImages">Image</label>
+                        <input type="file" multiple value="userImages" #selectFile (change)="onFileSelected($event)">
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div id="userImages" class="col-sm" *ngFor="let file of user.userImages; let i = index">
+                                <div style="position: relative">
+                                    <span class="btn-remove-image" (click)="removeImage(i)">x</span>
+                                    <img [src]="file.url" width="100px" height="100px">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <button class="btn" [disabled]="f.invalid" (click)="onSubmit()" >
+                save
+              </button>
+        </form>
+        
+    </div>
+</div>

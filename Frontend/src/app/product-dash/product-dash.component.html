@@ -1,0 +1,175 @@
+<div class="productDash">
+   <div class="container">
+      <div class="adminBoard" id="main-container">
+         <div class="section-top-border">
+           <h3 class="mb-30">Products table</h3>
+           <div class="progress-table-wrap">
+             <div class="progress-table">
+              <div class="searchBar">
+                 <input type="text" name="searchKey" id="searchKey" placeholder="Search any product" onfocus="this.placeholder = ''"
+                 onblur="this.placeholder = 'Search any product'" class="single-input" #searchKeyWord (keyup)="searchByKeyWord(searchKeyWord.value)">
+             </div>
+               <div class="table-head">
+                 <div class="serial">#</div>
+                 <div class="country">Name</div>
+                 <div class="country">Type</div>
+                 <div class="country">Price</div>
+                 <div class="country">Discount</div>
+                 <div class="country">Description</div>
+                 <div class="country">Actions</div>
+               </div>
+               <div class="table-row" *ngFor="let product of listProduct">
+                 <div class="serial"> {{product.id}} </div>
+                 <div class="country"> {{product?.name}} </div>
+                 <div class="country"> {{product?.type}} </div>
+                 <div class="country"> {{product?.price}} </div>
+                 <div class="country"> {{product?.discount}} </div>
+                 <div class="country"> {{product?.description}} </div>
+                 <div class="country">
+                  <div class="country">
+                     <button class="genric-btn info circle"><a (click)="onOpenModal(product, 'edit')">Edit</a></button>
+                   <button class="genric-btn danger circle"><a (click)="onOpenModal(product, 'delete')">Delete</a></button>
+                  </div>
+                 </div>
+   
+               </div>
+             </div>
+           </div>
+           <div class="fontSizeButton">
+              <div class="text-start">
+                 <button class="genric-btn primary radius" (click)="onOpenModal(null!, 'add')">Add Product</button>
+               </div>
+            </div>
+            <div class="fontSizeButton">
+               <div class="text-end">
+                 <button class="genric-btn primary radius" (click)="loadMoreProduct()" *ngIf="showLoadButton">Load more</button>
+               </div>
+            </div>
+         </div>
+       </div>
+       <!-- Add Employee Modal -->
+       <div class="modal fade" id="addProductModal" tabindex="-1" role="dialog" aria-labelledby="addProductModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+           <div class="modal-content">
+              <div class="modal-header">
+                 <h5 class="modal-title" id="addProductModalLabel">Add Product</h5>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+                 </button>
+              </div>
+              <div class="modal-body">
+                 <form #addForm="ngForm" (ngSubmit)="onAddProduct(addForm)">
+                 <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" ngModel name="name" class="single-input-primary" id="name" placeholder="name" required>
+                 </div>
+                 <div class="form-group">
+                    <label for="type">Type</label>
+                    <input type="text" ngModel name="type" class="single-input-primary" id="type" placeholder="type" required>
+                 </div>
+                 <div class="form-group">
+                    <label for="price">Price</label>
+                    <input type="number" ngModel name="price" class="single-input-primary" id="price" placeholder="price" required>
+                 </div>
+                 <div class="form-group">
+                    <label for="discount">Discount</label>
+                    <input type="number" ngModel name="discount" class="single-input-primary" id="discount" placeholder="discount" required>
+                 </div>
+                 <div class="form-group">
+                   <label for="description">Description</label>
+                   <textarea type="text" ngModel name="description" class="single-textarea" id="description" placeholder="description" required></textarea>
+                 </div>
+                 <div class="form-group">
+                    <label for="productImages">Image</label>
+                    <input type="file" multiple value="productImages" #selectFile (change)="onFileSelected($event)">
+                  </div>
+                  <div class="container">
+                    <div class="row">
+                       <div id="prodImages" class="col-sm" *ngFor="let file of product.productImages; let i = index">
+                          <div style="position: relative">
+                             <span class="btn-remove-image" (click)="removeImage(i)">x</span>
+                             <img [src]="file.url" width="100px" height="100px">
+                          </div>
+                       </div>
+                    </div>
+                  </div>
+                 <div class="modal-footer">
+                    <button type="button" id="add-product-form" class="genric-btn danger radius" data-dismiss="modal">Close</button>
+                    <button [disabled]="addForm.invalid" type="submit" class="genric-btn info radius" >Save changes</button>
+                 </div>
+                 </form>
+              </div>
+           </div>
+         </div>
+         </div>
+       
+       <!-- Edit Modal -->
+       <div class="modal fade" id="updateProductModal" tabindex="-1" role="dialog" aria-labelledby="updateProductModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="updateProductModalLabel">Edit Product {{editProduct?.name}}</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body">
+                  <form #editForm="ngForm">
+                     <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" ngModel="{{editProduct?.name}}" name="name" class="single-input-primary" id="name" placeholder="name">
+                     </div>
+                     <div class="form-group">
+                       <label for="type">Type</label>
+                       <input type="text" ngModel="{{editProduct?.type}}" name="type" class="single-input-primary" id="type" placeholder="type">
+                     </div>
+                     <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="number" ngModel="{{editProduct?.price}}" name="price" class="single-input-primary" id="price" placeholder="price">
+                     </div>
+                     <div class="form-group">
+                        <label for="discount">Discount</label>
+                        <input type="number" ngModel="{{editProduct?.discount}}" name="discount" class="single-input-primary" id="discount" placeholder="discount">
+                     </div>
+                     <div class="form-group">
+                        <label for="description">Description</label>
+                        <textarea ngModel="{{editProduct?.description}}" name="description" class="single-textarea" id="description" placeholder="description"></textarea>
+                     </div>
+                     <div class="modal-footer">
+                        <button type="button" id="" data-dismiss="modal" class="genric-btn danger radius">Close</button>
+                        <button (click)="onUpdateProduct(editForm.value,editProduct.id)" data-dismiss="modal" class="genric-btn info radius" >Save changes</button>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+       </div>
+       
+       <!-- Delete Modal -->
+       <div class="modal fade" id="deleteProductModal" tabindex="-1" role="dialog" aria-labelledby="deleteProductModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="deleteProductModalLabel">Delete Product</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <div class="modal-body">
+                  <p>Are you sure you want to delete product {{deleteProduct?.name}}?</p>
+                  <div class="modal-footer">
+                     <button type="button" class="genric-btn danger radius" data-dismiss="modal">No</button>
+                     <button (click)="onDeleteProduct(deleteProduct.id)" class="genric-btn info radius" data-dismiss="modal">Yes</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+       </div>
+       
+       
+       
+   </div>
+  
+  
+  
+</div>

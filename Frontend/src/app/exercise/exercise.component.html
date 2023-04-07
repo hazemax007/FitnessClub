@@ -1,0 +1,64 @@
+<!--? Team -->
+<div class="exercise" id="main-container">
+    <!--? Hero Start -->
+    <div class="slider-area2">
+        <div class="slider-height2 d-flex align-items-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="hero-cap hero-cap2 pt-70">
+                            <h2>Exercises</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero End -->
+    <section class="team-area fix">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="section-tittle text-center mb-55 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".1s">
+                        <h2 >Check our fitness exercises</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6" *ngFor="let exercise of listExercise">
+                    <div class="card">
+                        <div class="single-cat text-center mb-30 wow fadeInUp" data-wow-duration="1s" data-wow-delay=".2s" >
+                            <div class="cat-icon">
+                                <img [src]="exercise.exerciseImages[0].url" width="300px" height="300px">
+                            </div>
+                            
+                                <h2 >{{exercise.name}}</h2>
+                                <br>
+                                <div class="buttonFontSize">
+                                    <button class="genric-btn danger radius" (click)="goToExercise(exercise.id)">View details</button>
+                                </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="exerciceDetailsModel">
+        <div class="modal fade" id="addExerciceModal" tabindex="-1" role="dialog" aria-labelledby="addExerciceModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Exercice Details</h2>
+                </div>
+                <div class="modal-body">
+                    <h3>Leg Curl</h3>
+                    <h3>I am Hazem ben Salem</h3>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
